@@ -1,5 +1,6 @@
 # cordova-qiyu
 
+# 七鱼客服SDK引入与使用
 
 # js调用
 
@@ -28,23 +29,25 @@
 
 ## 安装包支持 cocoapod
 
-cordova plugin add cordova-plugin-cocoapod-support --save
+    cordova plugin add cordova-plugin-cocoapod-support --save
 
 ## 切换到ios项目目录安装pod platforms/ios
-运行pod install
+    运行pod install
 
-编译ios项目
-ionic build ios
+    编译ios项目
+    ionic build ios
 
 ## 修改rootView 将root添加在navigation上
 
     CordovaLib.xcodeproj/Public/CDVAppDelegate.m
 
-    //self.window.rootViewController = self.viewController;
+
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:viewController];
     [nav setNavigationBarHidden:YES animated:YES];
     nav.navigationBar.barTintColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
     self.window.rootViewController = nav;
+
+
 
 ## 修改viewWillAppear 导航从七鱼界面退出pop时 隐藏导航
 
@@ -53,11 +56,15 @@ ionic build ios
     -(void)viewWillAppear:(BOOL)animated
     [self.navigationController setNavigationBarHidden:YES];
 
+
+
 ## 初始化七鱼
 
     Classes/AppDelegate.m
 
     [[QYSDK sharedSDK] registerAppId:@"b7bca11accfe2de1d89f6fa6e4345da2" appName:@"bobol"];
+
+
 
 # Android
 
