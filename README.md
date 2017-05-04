@@ -1,6 +1,6 @@
 # cordova-qiyu
 
-# 七鱼客服SDK引入与使用
+# cordova 插件 七鱼客服SDK引入与使用
 
 # js调用
 
