@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-qiyu" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>cordova-qiyu</name>
+    <js-module name="cordova-qiyu" src="www/cordova-qiyu.js">
+        <clobbers target="QiYu" />
+    </js-module>
+    
+    <platform name="android">
+        <source-file src="src/android/QiYuPlugin.java" target-dir="src/com/qiyu"></source-file>
+        <source-file src="src/android/UILImageLoader.java" target-dir="src/com/qiyu"></source-file>
+        <source-file src="src/android/Utils.java" target-dir="src/com/qiyu"></source-file>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="QiYuPlugin">
+                <param name="android-package" value="com.qiyu.QiYuPlugin" />
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml"  parent="application">
+
+            <!-- 声明云信后台服务 -->
+            <service
+                android:name="com.qiyukf.nimlib.service.NimService"
+                android:process=":core" />
+            <service
+                android:name="com.qiyukf.nimlib.service.NimService$Aux"
+                android:process=":core" />
+
+            <!-- 云信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录 -->
+            <receiver
+                android:name="com.qiyukf.nimlib.service.NimReceiver"
+                android:exported="false"
+                android:process=":core">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
+                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                </intent-filter>
+            </receiver>
+
+        </config-file>
+
+        <config-file target="AndroidManifest.xml"  parent="/manifest">
+                <!-- 加入应用需要的权限 -->
+                <!-- 网络相关 -->
+                <uses-permission android:name="android.permission.INTERNET" />
+                <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+                <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+                <!-- 手机状态 -->
+                <uses-permission android:name="android.permission.VIBRATE" />
+                <uses-permission android:name="android.permission.WAKE_LOCK" />
+                <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+                <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+                <!-- 读写文件 -->
+                <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+                <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+                <!-- 多媒体 -->
+                <uses-permission android:name="android.permission.CAMERA" />
+                <uses-permission android:name="android.permission.RECORD_AUDIO" />
+                <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+        </config-file>
+
+    </platform>
+
+    <platform name="ios">
+        <pods-config ios-min-version="7.0" use-frameworks="true">
+             <!-- optionally add private spec sources -->
+        </pods-config>
+        
+        <pod name="QIYU_iOS_SDK" tag="~> 3.5.5"/>
+
+        <source-file src="src/ios/QiYuPlugin.m" />
+        <header-file src="src/ios/QiYuPlugin.h" />
+
+        <config-file target="config.xml" parent="/widget">
+
+        <config-file target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
+             <string>需要照片权限</string>
+         </config-file>
+         <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+             <string>需要相机权限</string>
+         </config-file>
+         <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
+             <string>需要麦克风权限</string>
+         </config-file>
+         <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+             <string>使用时访问地理位置</string>
+         </config-file>
+        <!--插件映射至ios的类名-->
+        <feature name="QiYuPlugin">
+            <param name="ios-package" value="QiYuPlugin" />
+        </feature>
+        </config-file>
+    </platform>
+
+</plugin>
