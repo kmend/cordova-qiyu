@@ -14,7 +14,7 @@
     params["Data"] = [];
 
     params["Data"].push({"key":"real_name", "value": "" });
-
+    
     //七鱼客服端显示用户头像
     params["Data"].push({"key":"avatar", "value": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1621341193,1402394044&fm=23&gp=0.jpg"});
 
@@ -62,7 +62,7 @@
 
     Classes/AppDelegate.m
 
-    [[QYSDK sharedSDK] registerAppId:@"b7bca11accfe2de1d89f6fa6e4345da2" appName:@"bobol"];
+    [[QYSDK sharedSDK] registerAppId:@"3858be3c20ceb6298575736cf27858a7" appName:@"bobol"];
 
 
 
@@ -93,7 +93,7 @@
         Log.w("QiYuModel", "init!");
         myYSFOptions = ysfOptions();
         // you can also use "new FrescoImageLoader()" or "new PicassoImageLoader()"
-        if (!Unicorn.init(this, "b7bca11accfe2de1d89f6fa6e4345da2", myYSFOptions, new UILImageLoader())) {
+        if (!Unicorn.init(this, "3858be3c20ceb6298575736cf27858a7", myYSFOptions, new UILImageLoader())) {
             Log.w("QiYuModel", "init qiyu sdk error!");
         }
 
